@@ -1,0 +1,18 @@
+{
+  "name": "woobank",
+  "version": "1.0.0",
+  "private": "true",
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn dev:all",
+    "dev:all": "concurrently \"yarn dev:server\" \"yarn dev:web\"",
+    "dev:server": "yarn workspace @woobank/server dev",
+    "dev:web": "yarn workspace @woobank/web dev"
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

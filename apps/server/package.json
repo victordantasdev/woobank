@@ -1,0 +1,12 @@
+{
+  "name": "@woobank/server",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsx watch index.ts"
+  },
+  "dependencies": {
+    "tsx": "^4.11.0"
+  }
+}
