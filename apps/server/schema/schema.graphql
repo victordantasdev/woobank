@@ -1,0 +1,69 @@
+"""The root all queries"""
+type Query {
+  """Find an user by taxId"""
+  FindUserByTaxId(taxId: String!): User
+
+  """Find an account"""
+  FindAccountByUserId(userId: String!): Account
+}
+
+type User {
+  _id: String
+  firstName: String!
+  taxId: String!
+  password: String!
+}
+
+"""Represents a user account"""
+type Account {
+  _id: String
+  userId: String
+  accountNumber: String
+  balance: Int
+  ledger: [LedgerEntry]
+}
+
+type LedgerEntry {
+  value: Int
+  date: String
+  type: EntryType
+}
+
+enum EntryType {
+  revenue
+  expense
+}
+
+"""Root of mutations"""
+type Mutation {
+  """Logs in an user or raises an error"""
+  LoginMutation(input: LoginInput!): LoginPayload
+
+  """Register a new user"""
+  RegisterMutation(input: RegisterInput!): RegisterPayload
+}
+
+type LoginPayload {
+  token: String
+  me: User
+  clientMutationId: String
+}
+
+input LoginInput {
+  taxId: String!
+  password: String!
+  clientMutationId: String
+}
+
+type RegisterPayload {
+  token: String
+  me: User
+  clientMutationId: String
+}
+
+input RegisterInput {
+  firstName: String!
+  taxId: String!
+  password: String!
+  clientMutationId: String
+}
