@@ -1,0 +1,24 @@
+services:
+  mongodb_test:
+    image: mongo:7.0
+    container_name: mongodb_test
+    command: ["--port", "27018", "--replSet", "rs0"]
+    ports:
+      - "27018:27018"
+    healthcheck:
+      test: echo "try { rs.status() } catch (err) { rs.initiate({_id:'rs0',members:[{_id:0,host:'host.docker.internal:27018'}]}) }" | mongosh --port 27018 --quiet
+      interval: 5s
+      timeout: 30s
+      start_period: 0s
+      start_interval: 1s
+      retries: 30
+    environment:
+      - MONGO_INITDB_DATABASE=woobank-test
+    restart: always
+    volumes:
+      - "mongodb_test_data:/data/db"
+      - "mongodb_test_config:/data/configdb"
+
+volumes:
+  mongodb_test_data:
+  mongodb_test_config:
