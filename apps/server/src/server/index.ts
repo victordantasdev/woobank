@@ -6,6 +6,7 @@ import logger from "koa-logger"
 import Router from "koa-router"
 
 import { schema } from "@/schema"
+import { getUser } from "@/modules/user/userAuth"
 
 const app = new Koa()
 
@@ -22,6 +23,8 @@ app.use(
 const routes = new Router()
 
 const graphQlSettingsPerReq = async (req: Request): Promise<OptionsData> => {
+  const { user } = await getUser(req.header.authorization)
+
   return {
     graphiql: {
       headerEditorEnabled: true,
@@ -29,7 +32,7 @@ const graphQlSettingsPerReq = async (req: Request): Promise<OptionsData> => {
     },
     schema,
     pretty: true,
-    context: {},
+    context: { user },
     customFormatErrorFn: ({ message, locations, stack }) => {
       console.log(message)
       console.log(locations)
