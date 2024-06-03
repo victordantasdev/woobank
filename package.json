@@ -14,7 +14,9 @@
     "test:teardown": "docker-compose -f docker-compose.test.yml down",
     "test:wait": "wait-on tcp:27018",
     "test": "yarn run test:setup && yarn test:wait && jest --detectOpenHandles --maxWorkers=50% && yarn run test:teardown",
-    "test:watch": "yarn run test:setup && yarn test:wait && jest --watch --detectOpenHandles --maxWorkers=25% && yarn run test:teardown"
+    "test:watch": "yarn run test:setup && yarn test:wait && jest --watch --detectOpenHandles --maxWorkers=25% && yarn run test:teardown",
+    "cypress": "yarn workspace @woobank/web cypress",
+    "cypress:component": "yarn workspace @woobank/web cypress:component"
   },
   "workspaces": [
     "apps/*"
