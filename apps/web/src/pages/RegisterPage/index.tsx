@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-relay"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
+import LoadingButton from "@/components/ui/loading-button"
 
 import { type RegisterData, RegisterSchema } from "./validationSchema"
 import { ACCESS_TOKEN, TOAST_DURATION, USER_KEY } from "@/utils/constants"
@@ -22,6 +24,8 @@ import { formatCpfCnpj } from "@/utils/formatCpfCnpj"
 
 export default function RegisterPage() {
   const navigate = useNavigate()
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<RegisterData>({
     resolver: zodResolver(RegisterSchema),
@@ -35,6 +39,7 @@ export default function RegisterPage() {
   const [registerMutation] = useMutation<RegisterMutation>(Register)
 
   async function onSubmit(input: RegisterData) {
+    setIsLoading(true)
     registerMutation({
       variables: {
         input: {
@@ -44,6 +49,7 @@ export default function RegisterPage() {
         },
       },
       onCompleted: ({ RegisterMutation }, errors) => {
+        setIsLoading(false)
         if (errors && errors.length > 0) {
           toast({
             title: "Woops, ocorreu um erro!",
@@ -132,9 +138,14 @@ export default function RegisterPage() {
               )}
             />
 
-            <Button type="submit" variant="default" className="w-full">
+            <LoadingButton
+              type="submit"
+              variant="default"
+              className="w-full"
+              loading={isLoading}
+            >
               Continuar
-            </Button>
+            </LoadingButton>
 
             <Button
               variant="ghost"

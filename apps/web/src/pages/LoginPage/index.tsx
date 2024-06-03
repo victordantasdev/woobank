@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { useMutation } from "react-relay"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -13,6 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { toast } from "@/components/ui/use-toast"
+import LoadingButton from "@/components/ui/loading-button"
 
 import { ACCESS_TOKEN, TOAST_DURATION, USER_KEY } from "@/utils/constants"
 import { formatCpfCnpj } from "@/utils/formatCpfCnpj"
@@ -23,6 +25,8 @@ import type { LoginMutation } from "@/__generated__/LoginMutation.graphql"
 
 export default function LoginPage() {
   const navigate = useNavigate()
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
@@ -35,6 +39,8 @@ export default function LoginPage() {
   const [login] = useMutation<LoginMutation>(Login)
 
   function onSubmit(input: LoginData) {
+    setIsLoading(true)
+
     login({
       variables: {
         input: {
@@ -43,6 +49,7 @@ export default function LoginPage() {
         },
       },
       onCompleted: ({ LoginMutation }, errors) => {
+        setIsLoading(false)
         if (errors && errors.length > 0) {
           toast({
             title: "Woops, ocorreu um erro!",
@@ -114,9 +121,14 @@ export default function LoginPage() {
               )}
             />
 
-            <Button type="submit" variant="default" className="w-full">
+            <LoadingButton
+              type="submit"
+              variant="default"
+              className="w-full"
+              loading={isLoading}
+            >
               Continuar
-            </Button>
+            </LoadingButton>
 
             <Button
               variant="ghost"
