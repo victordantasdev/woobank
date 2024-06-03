@@ -4,9 +4,29 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "tsx watch index.ts"
+    "dev": "tsx watch index.ts",
+    "start": "tsx watch index.ts",
+    "set:env": "tsx scripts/setEnvs.ts"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
+    "graphql": "^16.8.1",
+    "kcors": "^2.2.2",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "koa-graphql": "^0.12.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.1",
+    "mongoose": "^8.4.1",
     "tsx": "^4.11.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/kcors": "^2.2.8",
+    "@types/koa": "^2.15.0",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-logger": "^3.1.5",
+    "@types/koa-router": "^7.4.8",
+    "@types/node": "^20.14.0"
   }
 }
