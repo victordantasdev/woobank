@@ -4,19 +4,21 @@
   "private": "true",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"yarn dev:server\" \"yarn dev:web\"",
+    "compose:down": "docker compose down",
+    "compose:up": "docker compose up -d --build --force-recreate",
+    "cypress:component": "yarn workspace @woobank/web cypress:component",
+    "cypress": "yarn workspace @woobank/web cypress",
     "dev:server": "yarn workspace @woobank/server dev",
     "dev:web": "yarn workspace @woobank/web dev",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:web\"",
+    "schema": "yarn workspace @woobank/server schema",
     "set:env": "yarn workspace @woobank/server set:env && yarn workspace @woobank/web set:env",
-    "compose:up": "docker compose up -d --build --force-recreate",
-    "compose:down": "docker compose down",
+    "start:server": "yarn workspace @woobank/server start",
     "test:setup": "docker-compose -f docker-compose.test.yml up -d",
     "test:teardown": "docker-compose -f docker-compose.test.yml down",
     "test:wait": "wait-on tcp:27018",
-    "test": "yarn run test:setup && yarn test:wait && jest --detectOpenHandles --maxWorkers=50% && yarn run test:teardown",
     "test:watch": "yarn run test:setup && yarn test:wait && jest --watch --detectOpenHandles --maxWorkers=25% && yarn run test:teardown",
-    "cypress": "yarn workspace @woobank/web cypress",
-    "cypress:component": "yarn workspace @woobank/web cypress:component"
+    "test": "yarn run test:setup && yarn test:wait && jest --detectOpenHandles --maxWorkers=50% && yarn run test:teardown"
   },
   "workspaces": [
     "apps/*"
