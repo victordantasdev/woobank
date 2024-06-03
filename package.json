@@ -19,7 +19,8 @@
     "test:wait": "wait-on tcp:27018",
     "test:watch": "yarn schema && yarn run test:setup && yarn test:wait && jest --watch --detectOpenHandles --maxWorkers=25% && yarn run test:teardown",
     "test": "yarn schema && yarn run test:setup && yarn test:wait && jest --detectOpenHandles --maxWorkers=50% && yarn run test:teardown",
-    "relay": "yarn workspace @woobank/web relay"
+    "relay": "yarn workspace @woobank/web relay",
+    "storybook": "yarn workspace @woobank/web storybook"
   },
   "workspaces": [
     "apps/*"
