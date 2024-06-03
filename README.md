@@ -139,7 +139,7 @@ The application is available at: [https://woobank-web.vercel.app/](https://wooba
 - **Vite**
 - **Cypress**
 - **TailwindCSS**
-- **Chakra UI**
+- **Chadcn/ui**
 - **Relay**
 - **Storybook**
 
