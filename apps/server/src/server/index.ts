@@ -5,7 +5,7 @@ import { graphqlHTTP, OptionsData } from "koa-graphql"
 import logger from "koa-logger"
 import Router from "koa-router"
 
-import { schema } from "../../schema"
+import { schema } from "@/schema"
 
 const app = new Koa()
 
