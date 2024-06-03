@@ -4,10 +4,12 @@
   "private": "true",
   "license": "MIT",
   "scripts": {
-    "dev": "yarn dev:all",
-    "dev:all": "concurrently \"yarn dev:server\" \"yarn dev:web\"",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:web\"",
     "dev:server": "yarn workspace @woobank/server dev",
-    "dev:web": "yarn workspace @woobank/web dev"
+    "dev:web": "yarn workspace @woobank/web dev",
+    "set:env": "yarn workspace @woobank/server set:env && yarn workspace @woobank/web set:env",
+    "compose:up": "docker compose up -d --build --force-recreate",
+    "compose:down": "docker compose down"
   },
   "workspaces": [
     "apps/*"
