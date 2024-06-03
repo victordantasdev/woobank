@@ -6,11 +6,15 @@
   "scripts": {
     "dev": "tsx watch index.ts",
     "start": "tsx watch index.ts",
-    "set:env": "tsx scripts/setEnvs.ts"
+    "set:env": "tsx scripts/setEnvs.ts",
+    "schema": "tsx scripts/updateSchema.ts && cp schema/schema.graphql ../web/data/"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "graphql": "^16.8.1",
+    "graphql-relay": "^0.10.1",
+    "jsonwebtoken": "^9.0.2",
     "kcors": "^2.2.2",
     "koa": "^2.15.3",
     "koa-bodyparser": "^4.4.1",
@@ -21,13 +25,16 @@
     "tsx": "^4.11.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/dotenv": "^8.2.0",
     "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/kcors": "^2.2.8",
     "@types/koa": "^2.15.0",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-logger": "^3.1.5",
     "@types/koa-router": "^7.4.8",
+    "@types/mongoose": "^5.11.97",
     "ts-jest": "^29.1.4",
     "ts-node": "^10.9.2"
   }
