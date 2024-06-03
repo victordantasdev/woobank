@@ -5,6 +5,9 @@ type Query {
 
   """Find an account"""
   FindAccountByUserId(userId: String!): Account
+
+  """Find all transactions by senderId"""
+  FindAllTransactionsBySenderTaxId(senderTaxId: String!): [Transaction]
 }
 
 type User {
@@ -34,6 +37,16 @@ enum EntryType {
   expense
 }
 
+type Transaction {
+  _id: String
+  operationId: String!
+  senderTaxId: String!
+  receiverTaxId: String!
+  value: Int!
+  status: String
+  completedAt: String
+}
+
 """Root of mutations"""
 type Mutation {
   """Logs in an user or raises an error"""
@@ -41,6 +54,9 @@ type Mutation {
 
   """Register a new user"""
   RegisterMutation(input: RegisterInput!): RegisterPayload
+
+  """Creates a new transaction"""
+  CreateTransactionMutation(input: CreateTransactionInput!): CreateTransactionPayload
 }
 
 type LoginPayload {
@@ -65,5 +81,17 @@ input RegisterInput {
   firstName: String!
   taxId: String!
   password: String!
+  clientMutationId: String
+}
+
+type CreateTransactionPayload {
+  operationId: String
+  clientMutationId: String
+}
+
+input CreateTransactionInput {
+  senderTaxId: String!
+  receiverTaxId: String!
+  value: Float!
   clientMutationId: String
 }
